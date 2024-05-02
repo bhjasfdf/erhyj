@@ -1,0 +1,182 @@
+P5 Aim: Write an assembly language program for 16 bit addition.
+
+.MODEL SMALL
+.STACK 100H
+.DATA
+N1 DW 6587H
+N2 DW 1111H
+SUM DW 2 DUP(0)
+.CODE
+START:
+MOV AX,@DATA
+MOV DS,AX
+MOV AX,N1
+MOV BX,N2
+MOV BX,0000H
+ADD AX,BX
+MOV SUM,AX
+JNC EXIT
+INC DX
+MOV SUM+1,DX
+EXIT:MOV AH,4CH
+INT 21H
+END START
+
+
+
+P6:Aim: Write an assembly language program to convert Packed BCD to Unpacked BCD and also convert it into its ASCII value.
+
+.MODEL SMALL
+.STACK 100H
+.DATA
+N1 DB 25H
+DI1 DB ?
+DI2 DB ?
+A1 DB ?
+A2 DB ?
+.CODE
+START:
+MOV AX,@DATA
+MOV DS,AX
+MOV AL,N1
+AND AL,0FH
+MOV DI1,AL
+ADD AL,30H
+MOV A1,AL
+MOV BL,N1
+AND BL,0F0H
+MOV CL,04H
+ROL BL,CL
+MOV DI2,BL
+ADD BL,30H
+MOV A2,BL
+EXIT:
+MOV AH,4CH
+INT 21H
+END START
+
+P7 Aim :  Write an assembly language program for Program to move set of numbers from one memory block to another.
+
+
+c1-
+
+.MODEL SMALL
+.STACK 100H
+.DATA
+SOU DB 24H,12H,34H,81H,59H
+DSE DB 5 DUP(0)
+.CODE
+START:
+MOV AX,@DATA
+MOV DS,AX
+LEA SI,SOU
+LEA DI,DSE
+MOV CX,5
+BACK:
+MOV AL,[SI]
+MOV [DI],AL
+INC SI
+INC DI
+LOOP BACK
+EXIT:
+MOV AH,4CH
+INT 21H
+END START
+
+
+c2-
+
+.MODEL SMALL
+.STACK 100H
+.DATA
+SOU DB 24H,12H,34H,81H,59H
+DSE DB 5 DUP(0)
+.CODE
+START:
+MOV AX,@DATA
+MOV DS,AX
+LEA SI,SOU
+LEA DI,DSE
+MOV CX,5
+BACK:
+MOV AL,[SI]
+MOV [DI],AL
+INC SI
+INC DI
+LOOP BACK
+EXIT:
+MOV AH,4CH
+INT 21H
+END START
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+P8 Aim: Write an assembly language program to count number of 1’sand 0’s in a
+given 8-bit number
+
+.MODEL SMALL
+.STACK 100H
+.DATA
+NUMBER DW 5648H
+ZERO DW 01 DUP(?)
+ONES DW 01 DUP(?)
+.CODE
+START:
+MOV AX,@DATA
+MOV DS,AX
+MOV AX,NUMBER
+MOV BX,00H
+MOV DX,00H
+MOV CX,10H
+LABEL1:
+ ROL AX,1
+ JC ONE
+ INC BX
+ JMP NEXT
+ONE:
+ INC DX
+NEXT:
+ DEC CX
+ JNZ LABEL1
+
+MOV ZERO,BX
+MOV ONES,DX
+MOV AH,4CH
+INT 21H
+END START
+
+
+
+
